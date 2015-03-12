@@ -42,11 +42,13 @@ class graphite::install(
     'virtualenv' => true,
   }
 
-  class { 'python':
-    version    => 'system',
-    dev        => true,
-    pip        => true,
-    virtualenv => $install_virtualenv,
+  unless defined(Class['python']) {
+    class { 'python':
+      version    => 'system',
+      dev        => true,
+      pip        => true,
+      virtualenv => $install_virtualenv,
+    }
   }
 
   # Install OS specfic packages (deb, rpm, etc)
